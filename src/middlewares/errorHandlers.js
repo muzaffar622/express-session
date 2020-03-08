@@ -1,14 +1,21 @@
-export const notFound = (req, res, next) => {
-  const error = new Error(`${req.originalUrl} NOT FOUND`);
-  res.status(404);
-  next(error);
-};
+export class ErrorHandler extends Error {
+  constructor(statusCode, message, error) {
+    super();
+    this.statusCode = statusCode;
+    this.message = message;
+    this.errorMsg ? error : "UNKNOWN";
+    console.log("ERROR DETAILS: ", this.errorMsg || this.message);
+  }
+}
+export const error = (err, res) => {
+  if (!err.statusCode) {
+    err.statusCode = 500;
+  }
+  const { statusCode, message } = err;
 
-export const errorHandler = (err, req, res, next) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
-    status: statusCode
+  res.status(statusCode).json({
+    status: "error",
+    statusCode,
+    message
   });
 };
