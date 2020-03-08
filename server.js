@@ -57,14 +57,9 @@ app.delete("/api/destroy", (req, res, next) => {
     var included = null;
     if (data in sess) included = data;
     else throw new ErrorHandler(404, `NOT FOUND`);
-    sess.destroy(included, err => {
-      if (err) {
-        return next(err);
-      } else {
-        console.log("ses", sess);
-        res.json({ message: `SUCCESS` });
-      }
-    });
+    delete sess[included];
+    console.log("ses", sess);
+    res.json({ message: `SUCCESS` });
   } catch (err) {
     console.log(`ERROR ${err}`);
     next();
@@ -72,7 +67,7 @@ app.delete("/api/destroy", (req, res, next) => {
 });
 
 app.use((req, res) => {
-  throw new ErrorHandler(404, "API NOT FOUND");
+  throw new ErrorHandler(404, "NOT FOUND");
 });
 
 app.use((err, req, res, next) => {
