@@ -4,17 +4,18 @@ decode/encode/remove jwt data from/to session using express-session
 
 ## Getting started
 
-using npm
-```
-npm i
-```
-
 ## set secrets
 create and save <br/>
 SESSION_SECRET=your session secret<br/>
 TOKEN_SECRET=your token secret<br/>
 
 to .env file<br/>
+
+using npm
+```
+npm i
+npm run dev
+```
 
 ## API's for test
 
